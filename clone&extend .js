@@ -11,12 +11,14 @@ let clone = function(obj){
     let result;
     if(isObject(obj)){
         result = {};
-        //只复制自身的属性，不复制原型上的属性
-        for(let [key, value] of Object.entries(obj)){
+        //复制自身的所有属性包括symbol和不可枚举的属性
+        let keys = Reflect.ownKeys(obj);
+        for(let key of keys){
+            let value = obj[key];
             if(isObject(value) || isArray(value)){
                 result[key] = clone(value);
             }else{
-                //复制非对象属性 没有使用result[key] = value是因为这种方式无法复制get、set函数属性
+                //复制非对象属性 没有使用result[key] = value是因为这种方式无法复制get、set函数属性与不可枚举的属性
                 Object.defineProperty(result, key, Object.getOwnPropertyDescriptor(obj,key));
             }
         }
