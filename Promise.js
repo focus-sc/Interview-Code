@@ -1,5 +1,5 @@
 /* Promise ES6语法原理实现
- * 使用
+ * 基本使用
  * const promise = new Promise(function(resolve, reject) {
  * //... some code
  * if (//操作执行成功){
