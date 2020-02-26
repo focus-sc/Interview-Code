@@ -157,6 +157,7 @@
 	 */
 
 	Promise.all = function(promises){
+		promises = [...promises];
 		let length = promises.length, 
 			values = new Array(length), 
 			count = 0;
@@ -183,6 +184,7 @@
 	 * @return {Promise} Promise 实例的状态由率先改变的决定
 	 */
 	Promise.race = function(promises){
+		promises = [...promises];
 		return new Promise((resolve,reject)=>{
 			promises.forEach((p)=>{
 				Promise.resolve(p).then(
@@ -202,6 +204,7 @@
 	 * @return {Promise} 只有等到所有这些参数实例都返回结果，不管是fulfilled还是rejected，包装实例才会结束。
 	 */
 	Promise.allSettled = function(promises){
+		promises = [...promises];
 		let length = promises.length, 
 			values = {length:0};
 		return new Promise((resolve,reject)=>{
@@ -229,6 +232,7 @@
 	 * @return {Promise} 只有成员状态都变成rejected状态才失败，其中有一个变成fulfilled状态则成功
 	*/
 	Promise.any = function(promises){
+		promises = [...promises];
 		let length = promises.length, 
 			values = new Array(length), 
 			count = 0;
