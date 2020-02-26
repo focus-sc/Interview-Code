@@ -67,3 +67,16 @@ let flat = function(array, level = 1){
 	}
 	return res;
 }
+//使用生成器实现数组扁平化
+let flatG = function(tree){
+	function* iterTree(tree) {
+		if (Array.isArray(tree)) {
+			for(let i=0; i < tree.length; i++) {
+				yield* iterTree(tree[i]);
+			}
+		} else {
+			yield tree;
+		}
+	}
+	return [...iterTree(tree)];
+}
