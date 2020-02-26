@@ -253,7 +253,5 @@
 			})
 		})
 	}
-
 	window.Promise = Promise;
-
 })(this);
