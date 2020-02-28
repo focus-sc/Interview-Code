@@ -1,4 +1,4 @@
-//实现对象的深拷贝和扩展对象属性
+//实现对象的深拷贝和扩展对象属性与类的混合
 let isObject = function(obj){
     return Object.prototype.toString.call(obj) === '[object Object]';
 }
@@ -80,4 +80,28 @@ $.extend = $.prototype.extend = function(){
         index++;
     }
     return target;
+}
+
+//混入mixin模式
+let mixin = function(...classes){
+	let copyProp = function(target, source){
+		let keys = Reflect.ownKey(source);
+		for(let key of keys){
+			if(key !== 'constructor' && key !== 'name' && key !== 'prototype'){
+				let desc = Object.getOwnPropertyDescriptor(source, key);
+				Object.defineProperty(target, key, desc);
+			}
+		}
+	};
+	class Mix{
+		constructor(){
+			for(let cur of classes){
+				copyProp(this, new cur());			// 拷贝实例属性
+			}
+		}
+	}
+	for(let cur of classes){
+		copyProp(Mix, cur);							// 拷贝静态属性
+		copyProp(Mix.prototype, cur.prototype);		// 拷贝原型属性
+	}
 }
