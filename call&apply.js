@@ -4,9 +4,10 @@ Function.prototype.call = function(context, ...args){
 		throw new Error("....");
 	}
 	context = context || window;
-	context.fn = this;
-	let result = context.fn(...args);
-	delete context.fn;
+	let temp = Symbol('function');
+	context[temp] = this;
+	let result = context[temp](...args);
+	delete context[temp];
 	return result;
 }
 Function.prototype.apply = function(context, args){
