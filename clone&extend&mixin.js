@@ -23,7 +23,7 @@ let clone = function(obj){
             }
         }
         //保持原型一致
-        Object.setPrototypeOf(result,obj);
+        Object.setPrototypeOf(result,Object.getPrototypeOf(obj));
     }else if(isArray(obj)){
         result = [];
         for(let value of obj){
