@@ -84,24 +84,25 @@ $.extend = $.prototype.extend = function(){
 
 //混入mixin模式
 let mixin = function(...classes){
-	let copyProp = function(target, source){
-		let keys = Reflect.ownKey(source);
-		for(let key of keys){
-			if(key !== 'constructor' && key !== 'name' && key !== 'prototype'){
-				let desc = Object.getOwnPropertyDescriptor(source, key);
-				Object.defineProperty(target, key, desc);
-			}
+    let copyProp = function(target, source){
+	let keys = Reflect.ownKey(source);
+	for(let key of keys){
+            if(key !== 'constructor' && key !== 'name' && key !== 'prototype'){
+		let desc = Object.getOwnPropertyDescriptor(source, key);
+ 		    Object.defineProperty(target, key, desc);
 		}
+	    }
 	};
-	class Mix{
-		constructor(){
-			for(let cur of classes){
-				copyProp(this, new cur());			// 拷贝实例属性
-			}
-		}
+    class Mix{
+	constructor(){
+	    for(let cur of classes){
+		copyProp(this, new cur());		// 拷贝实例属性
+	    }
 	}
-	for(let cur of classes){
-		copyProp(Mix, cur);							// 拷贝静态属性
-		copyProp(Mix.prototype, cur.prototype);		// 拷贝原型属性
-	}
+    }
+    for(let cur of classes){
+	copyProp(Mix, cur);				// 拷贝静态属性
+	copyProp(Mix.prototype, cur.prototype);		// 拷贝原型属性
+    }
+    return Mix;
 }
