@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>布局方案</title>
+</head>
+	<style type="text/css">
+		/* 垂直水平居中1 flex法 */
+		.parent1{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		/* 垂直水平居中2 flex法 */
+		.parent2{
+			display: flex;
+		}
+		.parent2 .child{
+			margin: auto;
+		}
+
+		/* 垂直水平居中3 position法 */
+		.parent3{
+			position: relative;
+		}
+		.parent3 .child{
+			position: absolute;
+			top:50%;
+			left:50%;
+			transform: translate(-50%,-50%);
+		}
+
+		/* 垂直水平居中4 grid法 */
+		.parent4{
+			display: grid;
+			justify-content: center;
+			align-content: center;
+		}
+	
+		/* 多列布局 定宽/不定宽+自适应 flex法 */
+		.mul-col1{
+			display: flex;
+		}
+		.mul-col1 .left{
+			width: 100px;
+		}
+		.mul-col1 .right{
+			flex: 1;
+			margin-left: 10px;
+		}
+
+		/* 多列布局 定宽+自适应 float法 */
+		.mul-col2 .left{
+			float: left;
+			width: 100px;
+		}
+		.mul-col2 .right{
+			margin-left: 110px;
+		}
+
+		/* 多列等分1 flex法*/
+		.mul-col3{
+			display: flex;
+		}
+		.mul-col3 .column{
+			flex: 1;
+		}
+		.mul-col3 .column+.column{
+			margin-left: 10px;
+		}
+
+		/* 多列等分2 grid法*/
+		.mul-col4{
+			display: grid;
+			grid-template-columns: repeat(4,auto);
+			grid-column-gap: 10px;
+		}
+
+		/* 多列等高 flex法*/
+		.mul-col5{
+			display: flex;
+		}
+		.mul-col5 .column{
+			box-sizing: border-box;
+			flex: 1;
+		}
+		.mul-col5 .column+.column{
+			margin-left: 10px;
+		}
+
+		/* 全局布局1 flex法 */
+		.container1{
+			display: flex;
+			flex-direction: column;
+		}
+		.container1 .center{
+			flex: 1;
+			display: flex;
+		}
+		.container1 .mid{
+			flex: 1;
+			margin: 0 10px;
+		}
+
+		/* 全局布局1 grid法 */
+		.container2{
+			display: grid;
+			grid-template-rows: 50px auto 50px;
+			grid-template-columns: 50px auto 50px;
+			grid-column-gap: 10px;
+			grid-template-areas: 'top top top'
+			            'left mid right'
+			            'bottom bottom bottom'; 
+		}
+		.container2 .top{
+			grid-area: top;
+		}
+		.container2 .left{
+			grid-area: left;
+		}
+		.container2 .mid{
+			grid-area: mid;
+		}
+		.container2 .right{
+			grid-area: right;
+		}
+		.container2 .bottom{
+			grid-area: bottom;
+		}
+
+		/* 九宫格 */
+		.container3{
+			display: grid;
+			grid-template-columns: repeat(3,auto);
+			grid-template-rows: repeat(3,auto);
+			grid-gap: 10px 10px;
+		}
+	</style>
+<body>
+    <div class="parent1" style="width:100px;height:100px;margin-bottom:10px;border: 1px solid black">
+    	<div class="child" style="width:50px;height:50px;background-color:black;"></div>
+    </div>
+
+    <div class="parent2" style="width:100px;height:100px;margin-bottom:10px;border: 1px solid black">
+    	<div class="child" style="width:50px;height:50px;background-color:black;"></div>
+    </div>
+
+    <div class="parent3" style="width:100px;height:100px;margin-bottom:10px;border: 1px solid black">
+    	<div class="child" style="width:50px;height:50px;background-color:black;"></div>
+    </div>
+
+    <div class="parent4" style="width:100px;height:100px;margin-bottom:10px;border: 1px solid black">
+    	<div class="child" style="width:50px;height:50px;background-color:black;"></div>
+    </div>
+
+    <div class="mul-col1" style="margin-bottom:10px">
+    	<div class="left" style="height:100px;background-color:#e1e1e1;"></div>
+    	<div class="right" style="height:100px;background-color:#aaa;"></div>
+    </div>
+
+    <div class="mul-col2" style="margin-bottom:10px">
+    	<div class="left" style="height:100px;background-color:#e1e1e1"></div>
+    	<div class="right" style="height:100px;background-color:#aaa"></div>
+    </div>
+
+    <div class="mul-col3" style="margin-bottom:10px">
+    	<div class="column" style="height:100px;background-color:#aaa;"></div>
+    	<div class="column" style="height:100px;background-color:#e1e1e1;"></div>
+    	<div class="column" style="height:100px;background-color:#aaa;"></div>
+    	<div class="column" style="height:100px;background-color:#e1e1e1;"></div>
+    </div>
+
+    <div class="mul-col4" style="margin-bottom:10px">
+    	<div class="column" style="height:100px;background-color:#aaa;"></div>
+    	<div class="column" style="height:100px;background-color:#e1e1e1;"></div>
+    	<div class="column" style="height:100px;background-color:#aaa;"></div>
+    	<div class="column" style="height:100px;background-color:#e1e1e1;"></div>
+    </div>
+
+    <div class="mul-col5" style="margin-bottom:10px">
+    	<div class="column" style="background-color:#aaa;color: transparent;"><p>1</p></div>
+    	<div class="column" style="background-color:#e1e1e1;color: transparent;"><p>1</p><p>2</p></div>
+    	<div class="column" style="background-color:#aaa;color: transparent;"></div>
+    	<div class="column" style="background-color:#e1e1e1;color: transparent;"><p>1</p><p>2</p><p>3</p></div>
+    </div>
+
+
+    <div class="container1" style="height:200px;margin-bottom:10px;">
+    	<div class="top" style="height:50px;background-color:#e1e1e1;"></div>
+    	<div class="center">
+    		<div class="left" style="width:50px;background-color:#aaa;"></div>
+    		<div class="mid"  style="width:20px;background-color:#ccc;"></div>
+    		<div class="right" style="width:50px;background-color:#aaa;"></div>
+    	</div>
+    	<div class="bottom" style="height:50px;background-color:#e1e1e1;"></div>
+    </div>
+
+
+    <div class="container2" style="height:200px;margin-bottom:10px;">
+    	<div class="top" style="background-color:#e1e1e1;"></div>
+		<div class="left" style="background-color:#aaa;"></div>
+		<div class="mid"  style="background-color:#ccc;"></div>
+		<div class="right" style="background-color:#aaa;"></div>
+    	<div class="bottom" style="background-color:#e1e1e1;"></div>
+    </div>
+
+    <div class="container3" style="height: 300px; width: 300px">
+    	<div class="item" style="background-color:#e1e1e1"></div>
+    	<div class="item" style="background-color:#e1e1e1"></div>
+    	<div class="item" style="background-color:#e1e1e1"></div>
+    	<div class="item" style="background-color:#e1e1e1"></div>
+    	<div class="item" style="background-color:#e1e1e1"></div>
+    	<div class="item" style="background-color:#e1e1e1"></div>
+    	<div class="item" style="background-color:#e1e1e1"></div>
+    	<div class="item" style="background-color:#e1e1e1"></div>
+    	<div class="item" style="background-color:#e1e1e1"></div>
+    </div>
+</body>
+</html>
