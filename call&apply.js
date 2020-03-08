@@ -32,3 +32,11 @@ let currying = function(fn,context){
 	}
 
 }
+
+//new原理实现
+let New = function(fn, ...args){
+	let obj = {};
+	Object.setPrototypeOf(obj, fn.prototype);
+	fn.apply(obj, args);
+	return obj;
+}
